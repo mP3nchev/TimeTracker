@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <div class="header">
+        <h1>Time Tracker</h1>
+        <div class="status-badge" id="statusBadge">Inactive</div>
+      </div>
+
+      <div class="content">
+        <div class="document-card">
+          <div class="doc-title" id="docTitle">Loading...</div>
+          <div class="time-display">
+            <div class="time-value" id="timeValue">0m</div>
+            <div class="time-label">Today</div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">Total</span>
+            <span class="stat-value" id="totalTime">0m</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Last Seen</span>
+            <span class="stat-value" id="lastSeen">Never</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button id="dashboardBtn" class="btn btn-primary">Open Dashboard</button>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+DOCUMENT TIME TRACKER - QUICK START GUIDE
+==========================================
+
+1. EXTRACT FILES
+   - Extract this ZIP file to a folder on your computer
+
+2. INSTALL IN CHROME
+   - Open: chrome://extensions
+   - Enable "Developer Mode" (top right corner)
+   - Click "Load unpacked"
+   - Select this folder
+   - Done!
+
+3. INSTALL IN FIREFOX
+   - Open: about:debugging
+   - Click "This Firefox"
+   - Click "Load Temporary Add-on"
+   - Select manifest.json from this folder
+   - Done!
+
+4. START USING
+   - Look for the extension icon in your browser
+   - Click to see tracking stats
+   - Click "Open Dashboard" for detailed analytics
+
+5. HOW IT WORKS
+   - Tracks time only when your tab is visible and focused
+   - Stores data locally (no accounts or cloud)
+   - Data kept for 60 days automatically
+   - Works with Google Docs, Word Online, etc.
+
+FEATURES:
+- Real-time activity tracking
+- Multiple time period filters
+- Sort by time, date, or name
+- Export data as JSON
+- Privacy-focused (local storage only)
+
+TROUBLESHOOTING:
+- Make sure tab is visible for tracking
+- Refresh dashboard to see latest data
+- Check browser permissions for local storage
+
+Need help? Check README.md for detailed information.

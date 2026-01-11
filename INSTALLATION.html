@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document Time Tracker - Installation Guide</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1f2937;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: #667eea;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        margin-bottom: 32px;
+        font-size: 14px;
+      }
+
+      .section {
+        margin-bottom: 32px;
+      }
+
+      .section h2 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-icon {
+        font-size: 24px;
+      }
+
+      .steps {
+        background: #f9fafb;
+        border-left: 4px solid #667eea;
+        padding: 16px;
+        border-radius: 6px;
+        margin-top: 12px;
+      }
+
+      .step {
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      .step:last-child {
+        margin-bottom: 0;
+      }
+
+      .step-number {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: #667eea;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 24px;
+        font-weight: 600;
+        margin-right: 8px;
+        font-size: 12px;
+      }
+
+      .code {
+        background: #1f2937;
+        color: #10b981;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        display: inline-block;
+      }
+
+      .features {
+        display: grid;
+        gap: 8px;
+      }
+
+      .feature {
+        display: flex;
+        gap: 8px;
+        padding: 8px;
+        background: #f0f9ff;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .feature-icon {
+        color: #667eea;
+      }
+
+      .success-box {
+        background: #ecfdf5;
+        border: 1px solid #86efac;
+        border-radius: 6px;
+        padding: 16px;
+        margin-top: 16px;
+        font-size: 14px;
+        color: #15803d;
+      }
+
+      .success-box strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 24px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        .section h2 {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Document Time Tracker</h1>
+      <p class="subtitle">Ready to install? Follow the steps below for your browser</p>
+
+      <!-- Chrome Section -->
+      <div class="section">
+        <h2><span class="section-icon">🔷</span> Chrome Installation</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            Open <span class="code">chrome://extensions</span>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            Enable <strong>Developer Mode</strong> (toggle in top right)
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            Click <strong>Load unpacked</strong>
+          </div>
+          <div class="step">
+            <span class="step-number">4</span>
+            Select the <strong>extension folder</strong> and click Open
+          </div>
+          <div class="step">
+            <span class="step-number">5</span>
+            Done! Look for the extension icon in your toolbar
+          </div>
+        </div>
+      </div>
+
+      <!-- Firefox Section -->
+      <div class="section">
+        <h2><span class="section-icon">🦊</span> Firefox Installation</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            Open <span class="code">about:debugging</span>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            Click <strong>This Firefox</strong> (left sidebar)
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            Click <strong>Load Temporary Add-on</strong>
+          </div>
+          <div class="step">
+            <span class="step-number">4</span>
+            Select the <strong>manifest.json</strong> file
+          </div>
+          <div class="step">
+            <span class="step-number">5</span>
+            Done! The extension is now active
+          </div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="section">
+        <h2><span class="section-icon">⭐</span> Features</h2>
+        <div class="features">
+          <div class="feature">
+            <span class="feature-icon">📊</span>
+            <span>Real-time tracking of active document time</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">💾</span>
+            <span>Local storage - no account needed</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📈</span>
+            <span>Full analytics dashboard</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🔄</span>
+            <span>60-day data retention</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🌐</span>
+            <span>Works in Chrome and Firefox</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-box">
+        <strong>Installation Complete!</strong>
+        After installation, click the extension icon to see the popup. To access the full dashboard, click
+        "Open Dashboard" in the popup.
+      </div>
+    </div>
+  </body>
+</html>

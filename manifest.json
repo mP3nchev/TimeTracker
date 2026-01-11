@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Document Time Tracker",
+  "version": "1.0.0",
+  "description": "Track active time spent in documents and tabs",
+  "permissions": ["tabs", "storage", "activeTab", "alarms", "webNavigation", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Document Time Tracker"
+  },
+  "icons": {
+    "16": "icons/icon-16.svg",
+    "48": "icons/icon-48.svg",
+    "128": "icons/icon-128.svg"
+  }
+}
