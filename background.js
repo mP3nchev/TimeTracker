@@ -125,6 +125,18 @@ function generateDocKey(tab) {
     if (match) return `office_${match[1]}_${match[2]}`
   }
 
+  // Claude.ai chat tracking by conversation ID
+  if (url.hostname.includes("claude.ai")) {
+    const match = url.pathname.match(/\/chat\/([a-zA-Z0-9-_]+)/)
+    if (match) return `claude_${match[1]}`
+  }
+
+  // ChatGPT tracking by conversation ID
+  if (url.hostname.includes("chat.openai.com") || url.hostname.includes("chatgpt.com")) {
+    const match = url.pathname.match(/\/c\/([a-zA-Z0-9-_]+)/)
+    if (match) return `chatgpt_${match[1]}`
+  }
+
   return `domain_${url.hostname}`
 }
 
