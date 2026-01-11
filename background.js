@@ -1,20 +1,13 @@
-// Declare chrome and browser variables before using them
-let chrome
-let browser
-
-if (typeof window.chrome !== "undefined") {
-  chrome = window.chrome
-} else if (typeof window.browser !== "undefined") {
-  browser = window.browser
-}
-
-const ext = typeof chrome !== "undefined" ? chrome : browser
+// Service workers don't have access to window object
+// Use chrome/browser APIs directly
+const ext = (typeof chrome !== "undefined" && chrome.runtime) ? chrome : browser
 
 const CONFIG = {
   CLEANUP_INTERVAL_MS: 3600000,
   DATA_RETENTION_DAYS: 60,
   CHECK_INTERVAL_MS: 1000,
   MIN_RECORD_SECONDS: 10,
+  TRACKING_ALARM_NAME: "trackTime",
 }
 
 let tabAccumulatedTime = {}
@@ -33,48 +26,63 @@ ext.runtime.onStartup.addListener(() => {
 ext.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "cleanup") {
     cleanupOldData()
+  } else if (alarm.name === CONFIG.TRACKING_ALARM_NAME) {
+    trackActiveTab()
   }
 })
 
 async function startTracking() {
-  setInterval(async () => {
-    try {
-      const [activeTab] = await ext.tabs.query({ active: true, lastFocusedWindow: true })
+  // Create periodic alarm for tracking (every 1 second)
+  // Note: Chrome alarms have minimum 1 minute for periodic, so we use delayInMinutes: 0
+  // and reschedule after each execution for 1-second intervals
+  ext.alarms.create(CONFIG.TRACKING_ALARM_NAME, { delayInMinutes: 0.0167 }) // ~1 second
 
-      if (!activeTab || !activeTab.id || !activeTab.title) {
-        return
-      }
-
-      if (
-        activeTab.url.startsWith("chrome://") ||
-        activeTab.url.startsWith("about:") ||
-        activeTab.url.startsWith("edge://") ||
-        activeTab.url.startsWith("chrome-extension://") ||
-        activeTab.url.startsWith("moz-extension://")
-      ) {
-        return
-      }
-
-      const tabId = activeTab.id
-      if (!tabAccumulatedTime[tabId]) {
-        tabAccumulatedTime[tabId] = {
-          seconds: 0,
-          tab: activeTab,
-        }
-      }
-
-      tabAccumulatedTime[tabId].seconds += 1
-      tabAccumulatedTime[tabId].tab = activeTab
-
-      if (tabAccumulatedTime[tabId].seconds >= CONFIG.MIN_RECORD_SECONDS) {
-        await recordSession(activeTab)
-      }
-    } catch (error) {
-      console.error("[v0] Error in tracking:", error)
-    }
-  }, CONFIG.CHECK_INTERVAL_MS)
-
+  // Create cleanup alarm (every 60 minutes)
   ext.alarms.create("cleanup", { periodInMinutes: 60 })
+}
+
+async function trackActiveTab() {
+  try {
+    const [activeTab] = await ext.tabs.query({ active: true, lastFocusedWindow: true })
+
+    if (!activeTab || !activeTab.id || !activeTab.title) {
+      // Reschedule alarm
+      ext.alarms.create(CONFIG.TRACKING_ALARM_NAME, { delayInMinutes: 0.0167 })
+      return
+    }
+
+    if (
+      activeTab.url.startsWith("chrome://") ||
+      activeTab.url.startsWith("about:") ||
+      activeTab.url.startsWith("edge://") ||
+      activeTab.url.startsWith("chrome-extension://") ||
+      activeTab.url.startsWith("moz-extension://")
+    ) {
+      // Reschedule alarm
+      ext.alarms.create(CONFIG.TRACKING_ALARM_NAME, { delayInMinutes: 0.0167 })
+      return
+    }
+
+    const tabId = activeTab.id
+    if (!tabAccumulatedTime[tabId]) {
+      tabAccumulatedTime[tabId] = {
+        seconds: 0,
+        tab: activeTab,
+      }
+    }
+
+    tabAccumulatedTime[tabId].seconds += 1
+    tabAccumulatedTime[tabId].tab = activeTab
+
+    if (tabAccumulatedTime[tabId].seconds >= CONFIG.MIN_RECORD_SECONDS) {
+      await recordSession(activeTab)
+    }
+  } catch (error) {
+    console.error("[v0] Error in tracking:", error)
+  }
+
+  // Reschedule alarm for next check
+  ext.alarms.create(CONFIG.TRACKING_ALARM_NAME, { delayInMinutes: 0.0167 })
 }
 
 ext.tabs.onActivated.addListener(() => {
